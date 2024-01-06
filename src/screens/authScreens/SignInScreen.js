@@ -50,8 +50,8 @@ function SignInScreen() {
   };
 
   return (
-    <div className="p-4 h-screen w-screen flex flex-col justify-center">
-      <p className="font-bold text-2xl mb-9">Ajouter un utilisateur</p>
+    <div className="p-4">
+      <p className="font-bold md:text-center text-2xl mb-9">Ajouter un utilisateur</p>
       <form class="max-w-sm w-full mx-auto">
         <div class="mb-5">
           <label

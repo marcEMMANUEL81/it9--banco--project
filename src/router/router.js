@@ -14,6 +14,10 @@ import React from "react";
 const AppRouter = () => {
   const router = createBrowserRouter([
     {
+      path: "/",
+      element: <LogInScreen />,
+    },
+    {
       children: [
         {
           path: "/UsersScreen",
@@ -66,7 +70,7 @@ const AppRouter = () => {
           ),
         },
         {
-          path: "/SignInScreen",
+          path: "/signin",
           element: (
             <>
               <SideBar />
@@ -80,11 +84,7 @@ const AppRouter = () => {
     {
       children: [
         {
-          path: "/",
-          element: <LogInScreen />,
-        },
-        {
-          path: "/LogInScreen",
+          path: "/login",
           element: <LogInScreen />,
         },
       ],
