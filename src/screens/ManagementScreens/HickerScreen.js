@@ -222,7 +222,9 @@ function HickerScreen() {
   };
 
   useEffect(() => {
-    handleBaseFunctionForGettingUsers();
+    setTimeout(() => {
+      handleBaseFunctionForGettingUsers();
+    }, 2000);
   }, []);
 
   const filterList = [
@@ -251,7 +253,7 @@ function HickerScreen() {
       width: "95vw",
       height: "80%",
       transform: "translate(-50%, -50%)",
-      zIndex: '999'
+      zIndex: "999",
     },
   };
 

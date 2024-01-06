@@ -1,8 +1,8 @@
 import { successNotify } from "../notification/notify";
 import { waringNotify } from "../notification/notify";
 import axios from "axios";
-axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("SESSION_TOKEN");
-
+axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("SESSION_TOKEN");
 
 const apiUrl = "https://it9-banco-backend.onrender.com/api";
 
@@ -31,7 +31,11 @@ export const handleServiceSignstudent = async (data) => {
 export const handleServiceGetStudents = async (data) => {
   try {
     const uri = `${apiUrl}/student/all`;
-    const response = await axios.post(uri, data);
+    const response = await axios.post(uri, data, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("SESSION_TOKEN"),
+      },
+    });
     console.log(response);
     const status = response.data.status;
 
@@ -48,7 +52,7 @@ export const handleServiceGetStudents = async (data) => {
   }
 };
 
-// filter 
+// filter
 
 export const handleServiceFilterStudents = async () => {
   try {
@@ -115,7 +119,7 @@ export const handleServiceSendTicket = async (id) => {
 export const handleServiceDownloadTicket = async (id) => {
   try {
     const uri = `${apiUrl}/pass/download/${id}`;
-    window.open(uri, '_blank');
+    window.open(uri, "_blank");
     return true;
   } catch (error) {
     waringNotify("Quelque chose a mal tourné");

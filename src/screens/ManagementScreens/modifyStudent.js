@@ -28,7 +28,7 @@ function ModifyStudentScreen() {
 
   const getOptionLabel = (selectedOption) => {
     const foundOption = listClassroom.find(
-      (option) => option.value === selectedOption
+      (option) => option.label === selectedOption
     );
     return foundOption ? foundOption.label : null;
   };
