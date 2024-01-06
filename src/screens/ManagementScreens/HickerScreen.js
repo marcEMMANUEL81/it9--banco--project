@@ -160,7 +160,7 @@ function HickerScreen() {
   const navigate = useNavigate();
 
   var [haveData, setHaveData] = useState(false);
-  var [isLoading, setIsLoading] = useState(false);
+  var [isLoading] = useState(false);
 
   const [filterValue, setFilterValue] = useState(1);
   const handleClassChange = (selectedOption) => {

@@ -4,7 +4,6 @@ import ScannerScreen from "../screens/ManagementScreens/ScannerScreen";
 import StudentScreen from "../screens/ManagementScreens/StudentScreen";
 import HickerScreen from "../screens/ManagementScreens/HickerScreen";
 import UsersScreen from "../screens/ManagementScreens/UsersScreen";
-import TicketCard from "../screens/ManagementScreens/TicketCard";
 import SignInScreen from "../screens/authScreens/SignInScreen";
 import LogInScreen from "../screens/authScreens/LogInScreen";
 import { ToastContainer } from "react-toastify";

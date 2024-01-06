@@ -5,7 +5,6 @@ import {
   faUsers,
   faCampground,
   faQrcode,
-  faTicket,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
