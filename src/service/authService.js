@@ -1,8 +1,7 @@
 import { successNotify } from "../notification/notify";
 import { waringNotify } from "../notification/notify";
 import axios from "axios";
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("SESSION_TOKEN");
+axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("SESSION_TOKEN");
 
 const apiUrl = "https://it9-banco-backend.onrender.com/api";
 
@@ -18,9 +17,6 @@ export const handleServiceLogIn = async (data) => {
       case true:
         localStorage.setItem("SESSION_TOKEN", response.data.token);
         successNotify("Connexion reussie 🥳");
-        setTimeout(() => {
-          null;
-        }, 2000);
         return true;
       case false:
         waringNotify(response.data.message);
@@ -36,7 +32,6 @@ export const handleServiceLogIn = async (data) => {
 export const handleServiceLogOut = async () => {
   try {
     const uri = `${apiUrl}/auth/logout`;
-    console.log(uri);
     const response = await axios.get(uri);
     console.log(response);
     const status = response.data.status;
