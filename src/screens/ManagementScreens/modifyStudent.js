@@ -19,18 +19,18 @@ function ModifyStudentScreen() {
     }
   }, [location.state]);
 
+  const getOptionLabel = (selectedOption) => {
+    const foundOption = listClassroom.find(
+      (option) => option.value === selectedOption
+    );
+    return foundOption ? foundOption.label : null;
+  };
+
   const getOptionValue = (selectedOption) => {
     const foundOption = listClassroom.find(
       (option) => option.label === selectedOption
     );
     return foundOption ? foundOption.value : null;
-  };
-
-  const getOptionLabel = (selectedOption) => {
-    const foundOption = listClassroom.find(
-      (option) => option.label === selectedOption
-    );
-    return foundOption ? foundOption.label : null;
   };
 
   const [isReady, setIsReady] = useState(false);
@@ -76,9 +76,9 @@ function ModifyStudentScreen() {
     );
   };
 
-  const [classValue, setClassValue] = useState(1);
+  const [classValue, setClassValue] = useState(null);
   const handleClassChange = (selectedOption) => {
-    setClassValue(selectedOption.label);
+    setClassValue(selectedOption.value);
     handleButtonStyle(
       lastnameValue,
       firstnameValue,
@@ -89,6 +89,7 @@ function ModifyStudentScreen() {
 
   const handleLogin = () => {
     setIsLoading(true);
+    console.log(classValue);
     const selectedClass = getOptionLabel(classValue);
 
     const userInfo = {
@@ -98,6 +99,8 @@ function ModifyStudentScreen() {
       email: emailValue,
       class: selectedClass,
     };
+
+    console.log(userInfo);
 
     handleServiceSetStudent(userInfo).then((result) => {
       setIsLoading(false);
