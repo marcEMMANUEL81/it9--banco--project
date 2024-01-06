@@ -44,7 +44,7 @@ function LogInScreen() {
 
   return (
     <div className="p-4 h-screen w-screen flex flex-col justify-center">
-      <p className="font-bold text-2xl mb-9">Connection</p>
+      <p className="font-bold text-center text-2xl mb-9">Connection</p>
 
       <form className="max-w-sm w-full mx-auto">
         <div className="mb-5">

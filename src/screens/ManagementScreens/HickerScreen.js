@@ -87,36 +87,67 @@ function HickerScreen() {
 
       const templist = result.map((user, index) => (
         <tr key={index} className="bg-white dark:bg-gray-800">
-          <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
+          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
             {user.lastName}
           </td>
-          <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
+          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
             {user.firstName}
           </td>
-          <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
+          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
             {user.class}
           </td>
-          <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
+          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
             {user.email}
           </td>
-          <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
-            {user.hasPaid ? (
-              <p className="bg-green-200 text-green-700 mb-3 py-1 px-2 rounded-xl">
-                Payé
-              </p>
-            ) : (
-              <p className="bg-red-200 text-red-700 py-1 mb-3 px-2 rounded-xl">
-                Non Payé
-              </p>
-            )}
+          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+            <div className="flex mt-2">
+              <div
+                className={`p-2 flex mr-3 items-center ${
+                  user.pass.aCheck ? "bg-green-500" : "bg-red-500"
+                } rounded-lg`}
+              >
+                <p className="font-bold text-white">Arrivé</p>
+                <FontAwesomeIcon className="ml-2 text-white" icon={faUser} />
+              </div>
+              <div
+                className={`p-2 flex mr-3 items-center ${
+                  user.pass.dCheck ? "bg-green-500" : "bg-red-500"
+                } rounded-lg`}
+              >
+                <p className="font-bold text-white">Partis</p>
+                <FontAwesomeIcon
+                  className="ml-2 text-white"
+                  icon={faDoorOpen}
+                />
+              </div>
+            </div>
           </td>
-          <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
-            <a
-              href="#"
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              Edit
-            </a>
+          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+            <div className="flex">
+              <button
+                type="button"
+                onClick={() => GoToNextPage(user)}
+                className="text-gray-900 font-semibold mr-3 bg-blue-300 hover:bg-blue-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+              >
+                Éditer
+                <FontAwesomeIcon className="ml-2 text-white" icon={faPen} />
+              </button>
+              <button
+                type="button"
+                onClick={() => generateTicket(user.id)}
+                className="text-gray-900 font-semibold mr-3 bg-green-300 hover:bg-green-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+              >
+                Envoyer
+              </button>
+
+              <button
+                type="button"
+                onClick={() => downloadTicket(user.id)}
+                className="text-gray-900 mr-3 bg-yellow-300 hover:bg-yellow-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+              >
+                <FontAwesomeIcon className="text-black" icon={faDownload} />
+              </button>
+            </div>
           </td>
         </tr>
       ));
@@ -213,13 +244,14 @@ function HickerScreen() {
     content: {
       top: "50%",
       left: "50%",
-      right: "auto",
+      right: "50%%",
       bottom: "auto",
-      marginRight: "-50%",
+      marginRight: "-70%",
       paddingRight: "20px",
-      width: "90%",
+      width: "95vw",
       height: "80%",
       transform: "translate(-50%, -50%)",
+      zIndex: '999'
     },
   };
 
@@ -278,19 +310,19 @@ function HickerScreen() {
             style={customStyles}
             contentLabel="Example Modal"
           >
-            <div className="mb-9">
+            <div className="mb-9 flex flex-col justify-end items-center">
               <p className="font-bold text-lg mb-4">Choisissez votre option</p>
               <Link to="/StudentScreen">
                 <button
                   type="button"
-                  className="text-gray-900 mr-3 mb-3 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#F7BE38]/50"
+                  className="text-gray-900 mr-3 mb-9 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#F7BE38]/50"
                 >
                   <FontAwesomeIcon className="mr-2" icon={faPlus} />
                   Ajouter un Étudiant
                 </button>
               </Link>
 
-              <div className="mb-4 pl-4">
+              <div className="mb-4 w-lg pl-4">
                 <label
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   for="file_input"
@@ -298,7 +330,7 @@ function HickerScreen() {
                   Importer une liste
                 </label>
                 <input
-                  class="block w-full text-left text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  class="block text-left text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                   id="excelFileInput"
                   type="file"
                 />
@@ -308,7 +340,7 @@ function HickerScreen() {
                 <button
                   type="submit"
                   onClick={handleSendFile}
-                  className="text-white mb-3 text-gray-500 bg-[#F94C10] focus:ring-4 focus:outline-none focus:ring-[#F94C10]/70 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="text-white mb-9 text-gray-500 bg-[#F94C10] focus:ring-4 focus:outline-none focus:ring-[#F94C10]/70 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Ajouter
                 </button>
@@ -397,7 +429,7 @@ function HickerScreen() {
                     email
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Ticket
+                    Status
                   </th>
                   <th scope="col" className="px-6 py-3 rounded-e-lg">
                     Action
