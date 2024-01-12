@@ -1,4 +1,5 @@
 import { handleServiceSetStudent } from "../../service/studentService";
+import bancoLogo from "../../assets/images/bancoLogo.png"
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
