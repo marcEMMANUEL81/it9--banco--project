@@ -31,11 +31,7 @@ export const handleServiceSignstudent = async (data) => {
 export const handleServiceGetStudents = async (data) => {
   try {
     const uri = `${apiUrl}/student/all`;
-    const response = await axios.post(uri, data, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("SESSION_TOKEN"),
-      },
-    });
+    const response = await axios.post(uri, data);
     console.log(response);
     const status = response.data.status;
 

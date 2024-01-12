@@ -85,7 +85,12 @@ const AppRouter = () => {
       children: [
         {
           path: "/login",
-          element: <LogInScreen />,
+          element: (
+            <>
+              <LogInScreen />
+              <ToastContainer />
+            </>
+          ),
         },
       ],
     },
