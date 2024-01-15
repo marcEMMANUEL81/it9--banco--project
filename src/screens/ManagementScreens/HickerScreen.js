@@ -6,16 +6,14 @@ import {
   faUser,
   faDoorOpen,
 } from "@fortawesome/free-solid-svg-icons";
-
 import {
   handleServiceSendTicket,
   handleServiceDownloadTicket,
   handleServiceGetStudents,
   handleServiceSendStudentList,
 } from "../../service/studentService";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import bancoLogo from '../../assets/images/bancoLogo.png'
+import bancoLogo from "../../assets/images/bancoLogo.png";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -23,158 +21,25 @@ import Select from "react-select";
 import Modal from "react-modal";
 
 function HickerScreen() {
-  const handleBaseFunctionForGettingUsers = (data) => {
-    handleServiceGetStudents(data).then((result) => {
-      const temp = result.map((user, index) => (
-        <div key={index}>
-          <div className="p-3 bg-gray-50 rounded-lg mb-4">
-            <p className="font-bold">
-              Nom: {user.lastName} {user.firstName}
-            </p>
-            <p>Email: {user.email}</p>
-            <p>Classe: {user.class}</p>
+  // declaration des variables
 
-            <div className="flex mb-3 mt-2">
-              <div
-                className={`p-3 flex mr-3 items-center ${
-                  user.pass.aCheck ? "bg-green-500" : "bg-red-500"
-                } rounded-lg`}
-              >
-                <p className="font-bold text-white">Arrivé</p>
-                <FontAwesomeIcon className="ml-2 text-white" icon={faUser} />
-              </div>
-              <div
-                className={`p-3 flex mr-3 items-center ${
-                  user.pass.dCheck ? "bg-green-500" : "bg-red-500"
-                } rounded-lg`}
-              >
-                <p className="font-bold text-white">Est partis</p>
-                <FontAwesomeIcon
-                  className="ml-2 text-white"
-                  icon={faDoorOpen}
-                />
-              </div>
-            </div>
-
-            <div className="flex">
-              <button
-                type="button"
-                onClick={() => GoToNextPage(user)}
-                className="text-gray-900 font-semibold mr-3 bg-blue-300 hover:bg-blue-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
-              >
-                Éditer
-                <FontAwesomeIcon className="ml-2 text-white" icon={faPen} />
-              </button>
-              <button
-                type="button"
-                onClick={() => generateTicket(user.id)}
-                className="text-gray-900 font-semibold mr-3 bg-green-300 hover:bg-green-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
-              >
-                Envoyer le ticket
-              </button>
-
-              <button
-                type="button"
-                onClick={() => downloadTicket(user.id)}
-                className="text-gray-900 mr-3 bg-yellow-300 hover:bg-yellow-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
-              >
-                <FontAwesomeIcon className="text-black" icon={faDownload} />
-              </button>
-            </div>
-          </div>
-        </div>
-      ));
-      setUsersComponents(temp);
-
-      const templist = result.map((user, index) => (
-        <tr key={index} className="bg-white dark:bg-gray-800">
-          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
-            {user.lastName}
-          </td>
-          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
-            {user.firstName}
-          </td>
-          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
-            {user.class}
-          </td>
-          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
-            {user.email}
-          </td>
-          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
-            <div className="flex mt-2">
-              <div
-                className={`p-2 flex mr-3 items-center ${
-                  user.pass.aCheck ? "bg-green-500" : "bg-red-500"
-                } rounded-lg`}
-              >
-                <p className="font-bold text-white">Arrivé</p>
-                <FontAwesomeIcon className="ml-2 text-white" icon={faUser} />
-              </div>
-              <div
-                className={`p-2 flex mr-3 items-center ${
-                  user.pass.dCheck ? "bg-green-500" : "bg-red-500"
-                } rounded-lg`}
-              >
-                <p className="font-bold text-white">Partis</p>
-                <FontAwesomeIcon
-                  className="ml-2 text-white"
-                  icon={faDoorOpen}
-                />
-              </div>
-            </div>
-          </td>
-          <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
-            <div className="flex">
-              <button
-                type="button"
-                onClick={() => GoToNextPage(user)}
-                className="text-gray-900 font-semibold mr-3 bg-blue-300 hover:bg-blue-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
-              >
-                Éditer
-                <FontAwesomeIcon className="ml-2 text-white" icon={faPen} />
-              </button>
-              <button
-                type="button"
-                onClick={() => generateTicket(user.id)}
-                className="text-gray-900 font-semibold mr-3 bg-green-300 hover:bg-green-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
-              >
-                Envoyer
-              </button>
-
-              <button
-                type="button"
-                onClick={() => downloadTicket(user.id)}
-                className="text-gray-900 mr-3 bg-yellow-300 hover:bg-yellow-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
-              >
-                <FontAwesomeIcon className="text-black" icon={faDownload} />
-              </button>
-            </div>
-          </td>
-        </tr>
-      ));
-      setUsersListComponents(templist);
-
-      setHaveData(true);
-    });
-  };
-
-  const navigate = useNavigate();
-
+  var [usersListComponents, setUsersListComponents] = useState();
+  var [usersComponents, setUsersComponents] = useState();
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [searchValue, setSearchValue] = useState("");
   var [haveData, setHaveData] = useState(false);
-  var [isLoading] = useState(false);
 
   const [filterValue, setFilterValue] = useState(1);
-  const handleClassChange = (selectedOption) => {
-    setFilterValue(selectedOption.label);
-  };
-
-  var [usersComponents, setUsersComponents] = useState();
-  var [usersListComponents, setUsersListComponents] = useState();
+  var [data, setData] = useState([]);
+  var [isLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  // adapter le contenu de l'écran à la taille de l'image
 
   useEffect(() => {
     const handleResize = () => {
@@ -191,10 +56,188 @@ function HickerScreen() {
     };
   }, [windowSize]);
 
-  function GoToNextPage(user) {
-    localStorage.setItem("userData", JSON.stringify(user));
-    navigate("/ModifyStudentScreen");
-  }
+  // recupérer la liste des randonneurs
+
+  useEffect(() => {
+    setTimeout(() => {
+      handleBaseFunctionForGettingUsers();
+    }, 2000);
+  }, []);
+
+  const handleBaseFunctionForGettingUsers = (data) => {
+    handleServiceGetStudents(data).then((result) => {
+      setData(result);
+
+      var temp = mobileContainer(result);
+      setUsersComponents(temp);
+
+      var templist = computerContainer(result);
+      setUsersListComponents(templist);
+
+      setHaveData(true);
+    });
+  };
+
+  // template for mobile display
+
+  const mobileContainer = (result) => {
+    return result.map((user, index) => (
+      <div key={index}>
+        <div className="p-3 bg-gray-50 rounded-lg mb-4">
+          <p className="font-bold">
+            Nom: {user.lastName} {user.firstName}
+          </p>
+          <p>Email: {user.email}</p>
+          <p>Classe: {user.class}</p>
+
+          <div className="flex mb-3 mt-2">
+            <div
+              className={`p-3 flex mr-3 items-center ${
+                user.pass.aCheck ? "bg-green-500" : "bg-red-500"
+              } rounded-lg`}
+            >
+              <p className="font-bold text-white">Arrivé</p>
+              <FontAwesomeIcon className="ml-2 text-white" icon={faUser} />
+            </div>
+            <div
+              className={`p-3 flex mr-3 items-center ${
+                user.pass.dCheck ? "bg-green-500" : "bg-red-500"
+              } rounded-lg`}
+            >
+              <p className="font-bold text-white">Est partis</p>
+              <FontAwesomeIcon className="ml-2 text-white" icon={faDoorOpen} />
+            </div>
+          </div>
+
+          <div className="flex">
+            <button
+              type="button"
+              onClick={() => GoToNextPage(user)}
+              className="text-gray-900 font-semibold mr-3 bg-blue-300 hover:bg-blue-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+            >
+              Éditer
+              <FontAwesomeIcon className="ml-2 text-white" icon={faPen} />
+            </button>
+            <button
+              type="button"
+              onClick={() => generateTicket(user.id)}
+              className="text-gray-900 font-semibold mr-3 bg-green-300 hover:bg-green-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+            >
+              Envoyer le ticket
+            </button>
+
+            <button
+              type="button"
+              onClick={() => downloadTicket(user.id)}
+              className="text-gray-900 mr-3 bg-yellow-300 hover:bg-yellow-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+            >
+              <FontAwesomeIcon className="text-black" icon={faDownload} />
+            </button>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
+  // template for computer display
+
+  const computerContainer = (result) => {
+    return result.map((user, index) => (
+      <tr key={index} className="bg-white dark:bg-gray-800">
+        <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+          {user.lastName}
+        </td>
+        <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+          {user.firstName}
+        </td>
+        <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+          {user.class}
+        </td>
+        <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+          {user.email}
+        </td>
+        <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+          <div className="flex mt-2">
+            <div
+              className={`p-2 flex mr-3 items-center ${
+                user.pass.aCheck ? "bg-green-500" : "bg-red-500"
+              } rounded-lg`}
+            >
+              <p className="font-bold text-white">Arrivé</p>
+              <FontAwesomeIcon className="ml-2 text-white" icon={faUser} />
+            </div>
+            <div
+              className={`p-2 flex mr-3 items-center ${
+                user.pass.dCheck ? "bg-green-500" : "bg-red-500"
+              } rounded-lg`}
+            >
+              <p className="font-bold text-white">Partis</p>
+              <FontAwesomeIcon className="ml-2 text-white" icon={faDoorOpen} />
+            </div>
+          </div>
+        </td>
+        <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+          <div className="flex">
+            <button
+              type="button"
+              onClick={() => GoToNextPage(user)}
+              className="text-gray-900 font-semibold mr-3 bg-blue-300 hover:bg-blue-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+            >
+              Éditer
+              <FontAwesomeIcon className="ml-2 text-white" icon={faPen} />
+            </button>
+            <button
+              type="button"
+              onClick={() => generateTicket(user.id)}
+              className="text-gray-900 font-semibold mr-3 bg-green-300 hover:bg-green-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+            >
+              Envoyer
+            </button>
+
+            <button
+              type="button"
+              onClick={() => downloadTicket(user.id)}
+              className="text-gray-900 mr-3 bg-yellow-300 hover:bg-yellow-300/90 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-blue-300/50"
+            >
+              <FontAwesomeIcon className="text-black" icon={faDownload} />
+            </button>
+          </div>
+        </td>
+      </tr>
+    ));
+  };
+
+  // fonction pour rechercher un individu dans la liste
+
+  const handleSearchChange = (event) => {
+    handleSearch(event.target.value);
+  };
+
+  const handleSearch = (query) => {
+    var filteredList = data.filter(
+      (student) =>
+        student.firstName.toLowerCase().includes(query.toLowerCase()) ||
+        student.lastName.toLowerCase().includes(query.toLowerCase()) ||
+        student.email.toLowerCase().includes(query.toLowerCase()) ||
+        student.class.toLowerCase().includes(query.toLowerCase())
+    );
+    console.log(filteredList);
+
+    var temp = mobileContainer(filteredList);
+    setUsersComponents(temp);
+
+    var templist = computerContainer(filteredList);
+    setUsersListComponents(templist);
+  };
+
+  // filtrer la liste --> utilisteurs présents et absents
+
+  const handleClassChange = (selectedOption) => {
+    setFilterValue(selectedOption.label);
+  };
+
+  // API : fonction pour télécharger et envoyer les tickets
+  // générer
 
   function generateTicket(idUser) {
     setHaveData(false);
@@ -203,12 +246,16 @@ function HickerScreen() {
     });
   }
 
+  //télécharger
+
   function downloadTicket(idUser) {
     setHaveData(false);
     handleServiceDownloadTicket(idUser).then(() => {
       setHaveData(true);
     });
   }
+
+  // envoyer le ticket
 
   const handleSendFile = () => {
     setHaveData(false);
@@ -222,11 +269,12 @@ function HickerScreen() {
     handleServiceSendStudentList(formData);
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      handleBaseFunctionForGettingUsers();
-    }, 2000);
-  }, []);
+  // fonction de transfert des données dans le local storage pour modification d'utilisateurs
+
+  function GoToNextPage(user) {
+    localStorage.setItem("userData", JSON.stringify(user));
+    navigate("/ModifyStudentScreen");
+  }
 
   const filterList = [
     {
@@ -243,6 +291,8 @@ function HickerScreen() {
     },
   ];
 
+  // Paramètres du modal
+
   const customStyles = {
     content: {
       top: "50%",
@@ -252,13 +302,13 @@ function HickerScreen() {
       marginRight: "-70%",
       paddingRight: "20px",
       width: "95vw",
-      height: "80%",
+      height: "400px",
       transform: "translate(-50%, -50%)",
       zIndex: "999",
     },
   };
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  // fonction d'ouverture et de fermeture du modal
 
   function openModal() {
     setIsOpen(true);
@@ -267,6 +317,8 @@ function HickerScreen() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  // fonction pour filtrer la liste
 
   const getOptionLabel = (selectedOption) => {
     const foundOption = filterList.find(
@@ -313,7 +365,7 @@ function HickerScreen() {
             style={customStyles}
             contentLabel="Example Modal"
           >
-            <div className="mb-9 flex flex-col justify-end items-center">
+            <div className="mb-9">
               <p className="font-bold text-lg mb-4">Choisissez votre option</p>
               <Link to="/StudentScreen">
                 <button
@@ -325,7 +377,7 @@ function HickerScreen() {
                 </button>
               </Link>
 
-              <div className="mb-4 w-lg pl-4">
+              <div className="mb-4 w-lg">
                 <label
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   for="file_input"
@@ -354,12 +406,15 @@ function HickerScreen() {
                   className="text-white bg-[#F94C10]/70 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   <div
-            role="status"
-            class="absolute h-screen w-screen flex flex-col justify-center items-center bg-gray-100 bg-opacity-80 opacity-100 -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"
-          >
-            <img className="h-[100px] w-[100px] animate-bounce" src={bancoLogo} />
-            <span class="sr-only">Loading...</span>
-          </div>
+                    role="status"
+                    class="absolute h-screen w-screen flex flex-col justify-center items-center bg-gray-100 bg-opacity-80 opacity-100 -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"
+                  >
+                    <img
+                      className="h-[100px] w-[100px] animate-bounce"
+                      src={bancoLogo}
+                    />
+                    <span class="sr-only">Loading...</span>
+                  </div>
                   Patientez...
                 </button>
               )}
@@ -388,21 +443,22 @@ function HickerScreen() {
                   />
                 </button>
               </div>
-
-              <form className="max-w-sm">
-                <div className="mb-5">
-                  <input
-                    type="text"
-                    id="nom"
-                    className="bg-gray-50 font-bold border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Recherchez..."
-                    required
-                  />
-                </div>
-              </form>
             </div>
           </Modal>
         </div>
+
+        <form className="max-w-sm">
+          <div className="mb-5">
+            <input
+              type="text"
+              onChange={handleSearchChange}
+              id="search"
+              className="bg-gray-50 font-bold border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Recherchez..."
+              required
+            />
+          </div>
+        </form>
 
         {windowSize.width > 500 ? (
           <div className="relative overflow-x-auto">
@@ -441,7 +497,10 @@ function HickerScreen() {
             role="status"
             class="absolute h-screen w-screen flex flex-col justify-center items-center bg-gray-100 bg-opacity-80 opacity-100 -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"
           >
-            <img className="h-[100px] w-[100px] animate-bounce" src={bancoLogo} />
+            <img
+              className="h-[100px] w-[100px] animate-bounce"
+              src={bancoLogo}
+            />
             <span class="sr-only">Loading...</span>
           </div>
         ) : null}

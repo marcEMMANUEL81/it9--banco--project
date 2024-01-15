@@ -1,6 +1,5 @@
 import { successNotify } from "../notification/notify";
 import { waringNotify } from "../notification/notify";
-import { getToken } from "./authService";
 import axios from "axios";
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("SESSION_TOKEN");

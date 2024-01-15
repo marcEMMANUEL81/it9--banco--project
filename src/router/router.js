@@ -8,6 +8,7 @@ import SignInScreen from "../screens/authScreens/SignInScreen";
 import LogInScreen from "../screens/authScreens/LogInScreen";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { GuardedRoute } from "../guard/guard";
 import SideBar from "../components/sidebar";
 import React from "react";
 
@@ -25,7 +26,7 @@ const AppRouter = () => {
             <>
               <SideBar />
               <ToastContainer />
-              <UsersScreen />
+              <GuardedRoute component={UsersScreen} />
             </>
           ),
         },
@@ -35,7 +36,7 @@ const AppRouter = () => {
             <>
               <SideBar />
               <ToastContainer />
-              <HickerScreen />
+              <GuardedRoute component={HickerScreen} />
             </>
           ),
         },
@@ -45,7 +46,7 @@ const AppRouter = () => {
             <>
               <SideBar />
               <ToastContainer />
-              <ScannerScreen />
+              <GuardedRoute component={ScannerScreen} />
             </>
           ),
         },
@@ -55,7 +56,7 @@ const AppRouter = () => {
             <>
               <SideBar />
               <ToastContainer />
-              <StudentScreen />
+              <GuardedRoute component={StudentScreen} />
             </>
           ),
         },
@@ -65,7 +66,7 @@ const AppRouter = () => {
             <>
               <SideBar />
               <ToastContainer />
-              <ModifyStudentScreen />
+              <GuardedRoute component={ModifyStudentScreen} />
             </>
           ),
         },
@@ -75,7 +76,7 @@ const AppRouter = () => {
             <>
               <SideBar />
               <ToastContainer />
-              <SignInScreen />
+              <GuardedRoute component={SignInScreen} />
             </>
           ),
         },
