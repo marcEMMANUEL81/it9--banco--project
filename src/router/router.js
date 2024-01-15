@@ -6,6 +6,7 @@ import HickerScreen from "../screens/ManagementScreens/HickerScreen";
 import UsersScreen from "../screens/ManagementScreens/UsersScreen";
 import SignInScreen from "../screens/authScreens/SignInScreen";
 import LogInScreen from "../screens/authScreens/LogInScreen";
+import Page404 from "../screens/notFound/Page404";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GuardedRoute } from "../guard/guard";
@@ -77,6 +78,14 @@ const AppRouter = () => {
               <SideBar />
               <ToastContainer />
               <GuardedRoute component={SignInScreen} />
+            </>
+          ),
+        },
+        {
+          path: "*",
+          element: (
+            <>
+              <Page404 />
             </>
           ),
         },
