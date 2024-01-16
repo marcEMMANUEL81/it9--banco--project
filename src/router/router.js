@@ -17,7 +17,12 @@ const AppRouter = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LogInScreen />,
+      element: (
+        <>
+          <LogInScreen />
+          <ToastContainer />
+        </>
+      ),
     },
     {
       children: [
