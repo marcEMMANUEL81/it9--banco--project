@@ -96,6 +96,10 @@ function StudentScreen() {
       value: 4,
       label: "Master I MDSI",
     },
+    {
+      value: 5,
+      label: "Master I MBDS",
+    },
   ];
 
   return (
