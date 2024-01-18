@@ -100,6 +100,10 @@ function StudentScreen() {
       value: 5,
       label: "Master I MBDS",
     },
+    {
+      value: 6,
+      label: "Master I ERIS",
+    },
   ];
 
   return (

@@ -1,6 +1,6 @@
 import { handleServiceSetStudent } from "../../service/studentService";
 import { useNavigate, useLocation } from "react-router-dom";
-import bancoLogo from "../../assets/images/bancoLogo.png"
+import bancoLogo from "../../assets/images/bancoLogo.png";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
@@ -132,6 +132,10 @@ function ModifyStudentScreen() {
       value: 5,
       label: "Master I MBDS",
     },
+    {
+      value: 6,
+      label: "Master I ERIS",
+    },
   ];
 
   return (
@@ -228,12 +232,15 @@ function ModifyStudentScreen() {
               className="text-white bg-[#F94C10]/70 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <div
-            role="status"
-            class="absolute h-screen w-screen flex flex-col justify-center items-center bg-gray-100 bg-opacity-80 opacity-100 -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"
-          >
-            <img className="h-[100px] w-[100px] animate-bounce" src={bancoLogo} />
-            <span class="sr-only">Loading...</span>
-          </div>
+                role="status"
+                class="absolute h-screen w-screen flex flex-col justify-center items-center bg-gray-100 bg-opacity-80 opacity-100 -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"
+              >
+                <img
+                  className="h-[100px] w-[100px] animate-bounce"
+                  src={bancoLogo}
+                />
+                <span class="sr-only">Loading...</span>
+              </div>
               Patientez...
             </button>
           )}
